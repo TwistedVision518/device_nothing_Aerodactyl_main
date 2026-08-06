@@ -6,8 +6,13 @@
 # Inherit from the custom device configuration.
 $(call inherit-product, device/nothing/Aerodactyl/device-Pacman.mk)
 
-# Inherit from the LineageOS configuration.
-$(call inherit-product, vendor/lineage/config/common_full_phone.mk)
+# Inherit from the custom configuration.
+$(call inherit-product, vendor/custom/config/common_full_phone.mk)
+
+
+#build-flags
+WITH_REVANCED := true
+ASCP_MAINTAINER := TwistedVis
 
 PRODUCT_BRAND := Nothing
 PRODUCT_DEVICE := Pacman
