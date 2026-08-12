@@ -179,8 +179,8 @@ $(call soong_config_set,lineage_health,charging_control_charging_path,/proc/char
 $(call soong_config_set,lineage_health,charging_control_charging_enabled,0)
 $(call soong_config_set,lineage_health,charging_control_charging_disabled,1)
 # This proc node only exposes a simple charge on/off toggle.
-$(call soong_config_set,lineage_health,charging_control_supports_bypass,false)
-$(call soong_config_set,lineage_health,charging_control_supports_toggle,true)
+$(call soong_config_set_bool,lineage_health,charging_control_supports_bypass,false)
+$(call soong_config_set_bool,lineage_health,charging_control_supports_toggle,true)
 
 PRODUCT_PACKAGES += \
     vendor.lineage.health-service.default
