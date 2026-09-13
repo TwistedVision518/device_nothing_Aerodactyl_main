@@ -135,7 +135,7 @@ PRODUCT_COPY_FILES += \
 $(call inherit-product, hardware/dolby/dolby.mk)
 
 PRODUCT_PACKAGES += \
-    DolbyAtmos
+    LunarisDolby
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/audio/dax-default.xml:$(TARGET_COPY_OUT_VENDOR)/etc/dolby/dax-default.xml
@@ -200,7 +200,6 @@ PRODUCT_PACKAGES += \
     init.ethtooloffloading.sh
 
 PRODUCT_PACKAGES += \
-    chipinfo \
     fstab.enableswap \
     fstab.mt6886 \
     fstab.mt6886.vendor_ramdisk \
