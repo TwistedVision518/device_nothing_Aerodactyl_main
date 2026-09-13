@@ -163,6 +163,11 @@ PRODUCT_PACKAGES += \
     android.hardware.gatekeeper@1.0-impl \
     android.hardware.gatekeeper@1.0-service
 
+# Glyph
+PRODUCT_PACKAGES += \
+    GlyphAdapter \
+    ParanoidGlyphPhone2a
+
 # GNSS
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.location.gps.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.location.gps.xml
