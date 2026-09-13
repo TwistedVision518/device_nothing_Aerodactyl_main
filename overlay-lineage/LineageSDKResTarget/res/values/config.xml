@@ -20,4 +20,7 @@
          value. If this is the case, set this config to true to let the toggle provider always set
          charging enabled status regardless of the current status. -->
     <bool name="config_chargingControlToggleSetAlways">true</bool>
+
+    <!-- Re-enable charging after a small drop below the configured charge limit. -->
+    <integer name="config_chargingControlBatteryRechargeMargin">1</integer>
 </resources>
