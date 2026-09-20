@@ -17,3 +17,10 @@ PRODUCT_COPY_FILES += \
 
 # Inherit the proprietary files
 $(call inherit-product, vendor/nothing/PacmanPro/PacmanPro-vendor.mk)
+
+PERF_ANIM_OVERRIDE := true
+
+TARGET_HAS_UDFPS := true
+
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/PacmanPro/powerhint.json:$(TARGET_COPY_OUT_VENDOR)/etc/powerhint.json
