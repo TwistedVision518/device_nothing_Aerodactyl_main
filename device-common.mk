@@ -51,8 +51,8 @@ $(call soong_config_set_bool,android_hardware_audio,skip_speaker_layout_channel_
 
 PRODUCT_PACKAGES += \
     android.hardware.audio.effect@7.0-impl \
-    android.hardware.audio.service \
-    android.hardware.bluetooth.audio-impl \
+    android.hardware.audio.service.mediatek \
+    android.hardware.bluetooth.audio-impl-mediatek-aidl \
     android.hardware.soundtrigger@2.3-impl
 
 PRODUCT_PACKAGES += \
@@ -69,6 +69,7 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/audio/audio_policy_configuration_a2dp_offload_enable_cg_enable.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy_configuration.xml \
     $(LOCAL_PATH)/configs/audio/audio_policy_volumes.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy_volumes.xml \
     $(LOCAL_PATH)/configs/audio/default_volume_tables.xml:$(TARGET_COPY_OUT_VENDOR)/etc/default_volume_tables.xml \
+    $(LOCAL_PATH)/configs/audio/bluetooth_a2dp_offload_ums_offload_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/bluetooth_a2dp_offload_ums_offload_audio_policy_configuration.xml \
     $(LOCAL_PATH)/configs/audio/le_audio_codec_capabilities.xml:$(TARGET_COPY_OUT_VENDOR)/etc/le_audio_codec_capabilities.xml \
     $(LOCAL_PATH)/configs/audio/usb_audio_accessory_only_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/usb_audio_accessory_only_policy_configuration.xml
 
