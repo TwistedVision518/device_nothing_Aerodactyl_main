@@ -1,2 +1,3 @@
 # Glyph
 user=system seinfo=platform isPrivApp=true name=co.aospa.glyph domain=glyph_app type=system_app_data_file levelFrom=all
+user=system seinfo=platform isPrivApp=true name=org.lineageos.tetris.udfps domain=tetris_udfps_app type=tetris_udfps_app_data_file
