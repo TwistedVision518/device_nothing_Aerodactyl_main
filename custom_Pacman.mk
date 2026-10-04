@@ -7,7 +7,7 @@
 $(call inherit-product, device/nothing/Aerodactyl/device-Pacman.mk)
 
 # Inherit from the LineageOS configuration.
-$(call inherit-product, vendor/lineage/config/common_full_phone.mk)
+$(call inherit-product, vendor/custom/config/common_full_phone.mk)
 
 PRODUCT_BRAND := Nothing
 PRODUCT_DEVICE := Pacman
