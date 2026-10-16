@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     SPDX-FileCopyrightText: The LineageOS Project
+     SPDX-License-Identifier: Apache-2.0
+-->
+<resources>
+    <!-- Help texts -->
+    <string name="doze_settings_help_title">Help</string>
+    <string name="doze_settings_help_text">These features use sensor events to trigger doze notifications. The selected sensor is only enabled when the device receives a notification, which helps to optimize battery usage. There is also an option to enable the sensor as soon as the screen goes off, which will cause more battery usage.</string>
+</resources>
