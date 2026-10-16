@@ -8,6 +8,7 @@ package org.lineageos.settings.doze
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
+import android.content.DialogInterface
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -34,7 +35,7 @@ class DozeSettingsFragment : SettingsBasePreferenceFragment(), Preference.OnPref
             AlertDialog.Builder(requireContext())
                 .setTitle(R.string.doze_settings_help_title)
                 .setMessage(R.string.doze_settings_help_text)
-                .setNegativeButton(R.string.dialog_ok) { _, _ ->
+                .setNegativeButton(R.string.dialog_ok) { _: DialogInterface, _: Int ->
                     prefs.edit().putBoolean("first_help_shown", true).apply()
                 }
                 .show()
