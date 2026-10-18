@@ -37,7 +37,9 @@ import vendor.nothing.hardware.udfps.IIlluminationCallback;
 public final class IlluminationApplication extends Application {
     private static final String TAG = "TetrisUdfps";
     private static final String SERVICE = IIllumination.DESCRIPTOR + "/default";
-    private static final String HBM = "/sys/devices/platform/soc/1401a000.dsi0/hbm";
+    private static final String HBM_DSI = "/sys/devices/platform/soc/14017000.dsi/hbm";
+    private static final String HBM_PANEL = "/sys/panel_feature/hbm_mode";
+    private static final String HBM = Files.exists(Path.of(HBM_DSI)) ? HBM_DSI : (Files.exists(Path.of(HBM_PANEL)) ? HBM_PANEL : HBM_DSI);
     private static final String UI_READY = "/sys/panel_feature/ui_status";
     private static final String HBM_TIMING = HBM + "_timing";
     private static final String AOD_PULSE_ACTION = "com.android.systemui.doze.pulse";

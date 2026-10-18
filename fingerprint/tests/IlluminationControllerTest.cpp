@@ -72,7 +72,7 @@ static void assertReset() {
     assert(host::writes[0] == std::make_pair(std::string("/sys/panel_feature/ui_status"),
                                            std::string("0")));
     assert(host::writes[1] == std::make_pair(
-            std::string("/sys/devices/platform/soc/1401a000.dsi0/hbm"), std::string("0")));
+            std::string("/sys/devices/platform/soc/14017000.dsi/hbm"), std::string("0")));
 }
 
 int main() {

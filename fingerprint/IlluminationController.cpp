@@ -22,7 +22,8 @@ namespace FingerprintHalProperties = ::android::fingerprint::nothing::Fingerprin
 
 constexpr char kService[] = "vendor.nothing.hardware.udfps.IIllumination/default";
 constexpr char kUiStatus[] = "/sys/panel_feature/ui_status";
-constexpr char kHbm[] = "/sys/devices/platform/soc/1401a000.dsi0/hbm";
+constexpr char kHbm[] = "/sys/devices/platform/soc/14017000.dsi/hbm";
+constexpr char kHbmFallback[] = "/sys/panel_feature/hbm_mode";
 
 void reportFailure(const std::shared_ptr<ISessionCallback>& callback) {
     if (callback) {
@@ -158,7 +159,8 @@ void IlluminationController::forceOff() {
     if (!::android::base::WriteStringToFile("0", kUiStatus)) {
         ALOGE("Cannot reset UDFPS UI readiness");
     }
-    if (!::android::base::WriteStringToFile("0", kHbm)) {
+    if (!::android::base::WriteStringToFile("0", kHbm) &&
+        !::android::base::WriteStringToFile("0", kHbmFallback)) {
         ALOGE("Cannot reset UDFPS HBM");
     }
 }
