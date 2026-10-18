@@ -24,6 +24,13 @@ TARGET_ENABLE_BLUR := true
 
 LUNARIS_BUILD_TYPE := OFFICIAL
 
+#bcr
+WITH_BCR := true
+
+WITH_PIXEL_LAUNCHER := false
+
+USE_DEFAULT_VULKAN := true
+
 # Whether the device supports Fingerprint On Display
 TARGET_HAS_UDFPS := true
 TARGET_CUSTOM_UDFPS := true
