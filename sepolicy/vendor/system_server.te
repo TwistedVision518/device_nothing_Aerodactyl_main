@@ -1,0 +1,2 @@
+r_dir_file(system_server, vendor_proc_charger)
+r_dir_file(system_server, proc_irq)
