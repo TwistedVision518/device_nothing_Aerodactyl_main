@@ -428,6 +428,16 @@
         <item>0.55</item>
     </string-array>
 
+    <!-- UDFPS sensor position and radius for Aerodactyl: [x_px, y_px, radius_px] -->
+    <integer-array name="config_udfps_sensor_props" translatable="false">
+        <!-- X: Normalized Center (1080 / 2) -->
+        <item>540</item>
+        <!-- Y: Normalized Vertical Coordinate -->
+        <item>2068</item>
+        <!-- Radius -->
+        <item>85</item>
+    </integer-array>
+
     <!-- Messages that should not be shown to the user during face authentication, on keyguard.
          This includes both lockscreen and bouncer. This should be used to hide messages that may be
          too chatty or messages that the user can't do much about. Entries are defined in
