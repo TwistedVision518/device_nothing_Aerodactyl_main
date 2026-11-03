@@ -412,24 +412,6 @@
       "Value": "1"
     },
     {
-      "PowerHint": "INTERACTION",
-      "Node": "UclampFGMin",
-      "Duration": 150,
-      "Value": "30"
-    },
-    {
-      "PowerHint": "INTERACTION",
-      "Node": "UclampTAMin",
-      "Duration": 150,
-      "Value": "60"
-    },
-    {
-      "PowerHint": "INTERACTION",
-      "Node": "UclampTALatency",
-      "Duration": 150,
-      "Value": "1"
-    },
-    {
       "PowerHint": "LAUNCH",
       "Node": "PMQoSCpuDmaLatency",
       "Duration": 1000,
