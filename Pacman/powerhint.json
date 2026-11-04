@@ -513,7 +513,7 @@
       "Name": "ADPF_DEFAULT",
       "PID_On": true,
       "PID_Po": 2.0,
-      "PID_Pu": 1.0,
+      "PID_Pu": 2.0,
       "PID_I": 0.001,
       "PID_I_Init": 200,
       "PID_I_High": 512,
@@ -527,21 +527,21 @@
       "UclampMin_Init": 100,
       "UclampMin_High": 480,
       "UclampMin_Low": 0,
-      "UclampMin_LoadUp": 480,
-      "UclampMin_LoadReset": 480,
+      "UclampMin_LoadUp": 200,
+      "UclampMin_LoadReset": 250,
       "ReportingRateLimitNs": 166666660,
       "TargetTimeFactor": 1.0,
       "StaleTimeFactor": 10.0,
       "GpuBoost": false,
       "GpuCapacityLoadUpHeadroom": 0,
       "HeuristicBoost_On": true,
-      "HBoostModerateJankThreshold": 4,
+      "HBoostModerateJankThreshold": 2,
       "HBoostOffMaxAvgDurRatio": 4.0,
       "HBoostSevereJankPidPu": 0.5,
-      "HBoostSevereJankThreshold": 2,
+      "HBoostSevereJankThreshold": 6,
       "HBoostUclampMinCeilingRange": [
         480,
-        800
+        720
       ],
       "HBoostUclampMinFloorRange": [
         200,
@@ -580,5 +580,8 @@
       "GpuBoost": false,
       "GpuCapacityLoadUpHeadroom": 0
     }
-  ]
+  ],
+  "OtherConfigs": {
+    "EnableSFPreferHighCap": true
+  }
 }
