@@ -628,19 +628,48 @@
     },
     {
       "Name": "SCHED_QOS_SENSITIVE_STANDARD",
-      "Actions": []
+      "Actions": [
+        {
+          "Name": "SetTimerSlack",
+          "Params": {
+            "Slack": "50000"
+          }
+        }
+      ]
     },
     {
       "Name": "SCHED_QOS_SENSITIVE_EXTREME",
-      "Actions": []
+      "Actions": [
+        {
+          "Name": "SetTimerSlack",
+          "Params": {
+            "Slack": "10000"
+          }
+        }
+      ]
     },
     {
       "Name": "SCHED_QOS_NONE",
-      "Actions": []
+      "Actions": [
+        {
+          "Name": "SetTimerSlack",
+          "Params": {
+            "Slack": "50000"
+          }
+        }
+      ]
     },
     {
       "Name": "PreferHighCapSet",
-      "Actions": []
+      "Actions": [
+        {
+          "Name": "JoinCgroup",
+          "Params": {
+            "Controller": "cpuset",
+            "Path": "top-app"
+          }
+        }
+      ]
     }
   ],
   "AggregateProfiles": [
