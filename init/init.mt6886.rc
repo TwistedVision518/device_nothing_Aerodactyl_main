@@ -305,6 +305,8 @@ on boot
 on property:sys.boot_completed=1
     # stop bootprof
     write /proc/bootprof 0
+    # Enable ZRAM after boot completes
+    swapon_all /vendor/etc/fstab.enableswap
 
 #
 #  External Modme control related services
