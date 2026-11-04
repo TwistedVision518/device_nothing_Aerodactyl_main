@@ -378,37 +378,37 @@
     {
       "PowerHint": "INTERACTION",
       "Node": "CPUSuperClusterMinFreq",
-      "Duration": 150,
-      "Value": "1700000"
+      "Duration": 100,
+      "Value": "1000000"
     },
     {
       "PowerHint": "INTERACTION",
       "Node": "CPUSuperClusterMaxFreq",
-      "Duration": 150,
+      "Duration": 100,
       "Value": "2800000"
     },
     {
       "PowerHint": "INTERACTION",
       "Node": "CPUEfficiencyClusterMinFreq",
-      "Duration": 150,
-      "Value": "1500000"
+      "Duration": 100,
+      "Value": "1100000"
     },
     {
       "PowerHint": "INTERACTION",
       "Node": "CPUEfficiencyClusterMaxFreq",
-      "Duration": 150,
+      "Duration": 100,
       "Value": "2000000"
     },
     {
       "PowerHint": "INTERACTION",
       "Node": "MemFreq",
-      "Duration": 150,
-      "Value": "4266000000"
+      "Duration": 100,
+      "Value": "2133000000"
     },
     {
       "PowerHint": "INTERACTION",
       "Node": "CciFreq",
-      "Duration": 150,
+      "Duration": 100,
       "Value": "1"
     },
     {
@@ -420,50 +420,32 @@
     {
       "PowerHint": "LAUNCH",
       "Node": "CPUSuperClusterMinFreq",
-      "Duration": 1500,
+      "Duration": 1000,
       "Value": "2800000"
     },
     {
       "PowerHint": "LAUNCH",
       "Node": "CPUEfficiencyClusterMinFreq",
-      "Duration": 1500,
+      "Duration": 1000,
       "Value": "2000000"
     },
     {
       "PowerHint": "LAUNCH",
       "Node": "MemFreq",
-      "Duration": 1500,
+      "Duration": 1000,
       "Value": "4266000000"
     },
     {
       "PowerHint": "LAUNCH",
       "Node": "GpuBaseDvfsMargin",
-      "Duration": 1500,
+      "Duration": 1000,
       "Value": "18743356"
     },
     {
       "PowerHint": "LAUNCH",
       "Node": "GpuBaseDvfsStep",
-      "Duration": 1500,
+      "Duration": 1000,
       "Value": "771"
-    },
-    {
-      "PowerHint": "LAUNCH",
-      "Node": "UclampFGMin",
-      "Duration": 1500,
-      "Value": "30"
-    },
-    {
-      "PowerHint": "LAUNCH",
-      "Node": "UclampTALatency",
-      "Duration": 3000,
-      "Value": "0"
-    },
-    {
-      "PowerHint": "LAUNCH",
-      "Node": "UclampTAMin",
-      "Duration": 1500,
-      "Value": "100"
     },
     {
       "PowerHint": "AUDIO_STREAMING_LOW_LATENCY",
@@ -481,37 +463,19 @@
       "PowerHint": "EXPENSIVE_RENDERING",
       "Node": "MemFreq",
       "Duration": 0,
-      "Value": "3200000000"
+      "Value": "2133000000"
     },
     {
       "PowerHint": "EXPENSIVE_RENDERING",
       "Node": "CPUSuperClusterMinFreq",
       "Duration": 0,
-      "Value": "1500000"
+      "Value": "1000000"
     },
     {
       "PowerHint": "EXPENSIVE_RENDERING",
       "Node": "CPUEfficiencyClusterMinFreq",
       "Duration": 0,
-      "Value": "950000"
-    },
-    {
-      "PowerHint": "EXPENSIVE_RENDERING",
-      "Node": "GpuBaseDvfsMargin",
-      "Duration": 0,
-      "Value": "50"
-    },
-    {
-      "PowerHint": "EXPENSIVE_RENDERING",
-      "Node": "GpuBaseDvfsStep",
-      "Duration": 0,
-      "Value": "103"
-    },
-    {
-      "PowerHint": "EXPENSIVE_RENDERING",
-      "Node": "UclampTAMin",
-      "Duration": 0,
-      "Value": "60"
+      "Value": "850000"
     },
     {
       "PowerHint": "DOUBLE_TAP_TO_WAKE",
