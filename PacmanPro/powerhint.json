@@ -425,24 +425,6 @@
       "Value": "1"
     },
     {
-      "PowerHint": "INTERACTION",
-      "Node": "UclampFGMin",
-      "Duration": 150,
-      "Value": "30"
-    },
-    {
-      "PowerHint": "INTERACTION",
-      "Node": "UclampTAMin",
-      "Duration": 150,
-      "Value": "60"
-    },
-    {
-      "PowerHint": "INTERACTION",
-      "Node": "UclampTALatency",
-      "Duration": 150,
-      "Value": "1"
-    },
-    {
       "PowerHint": "LAUNCH",
       "Node": "PMQoSCpuDmaLatency",
       "Duration": 1000,
@@ -477,24 +459,6 @@
       "Node": "GpuBaseDvfsStep",
       "Duration": 1500,
       "Value": "771"
-    },
-    {
-      "PowerHint": "LAUNCH",
-      "Node": "UclampFGMin",
-      "Duration": 1500,
-      "Value": "30"
-    },
-    {
-      "PowerHint": "LAUNCH",
-      "Node": "UclampTALatency",
-      "Duration": 3000,
-      "Value": "0"
-    },
-    {
-      "PowerHint": "LAUNCH",
-      "Node": "UclampTAMin",
-      "Duration": 1500,
-      "Value": "100"
     },
     {
       "PowerHint": "AUDIO_STREAMING_LOW_LATENCY",
@@ -549,12 +513,6 @@
       "Node": "GpuBaseDvfsStep",
       "Duration": 0,
       "Value": "16"
-    },
-    {
-      "PowerHint": "EXPENSIVE_RENDERING",
-      "Node": "UclampTAMin",
-      "Duration": 0,
-      "Value": "100"
     },
     {
       "PowerHint": "DOUBLE_TAP_TO_WAKE",
