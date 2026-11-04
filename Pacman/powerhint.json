@@ -370,7 +370,7 @@
         "ADPF_DEFAULT",
         "ADPF_SF"
       ],
-      "DefaultIndex": 0,
+      "DefaultIndex": 1,
       "Type": "Event"
     }
   ],
@@ -482,18 +482,6 @@
       "Node": "DoubleTapToWakeEnable",
       "Duration": 0,
       "Value": "1"
-    },
-    {
-      "PowerHint": "SF_PLAYING",
-      "Node": "SURFACEFLINGER",
-      "Duration": 0,
-      "Value": "ADPF_SF"
-    },
-    {
-      "PowerHint": "SF_RESET",
-      "Node": "SURFACEFLINGER",
-      "Duration": 0,
-      "Value": "ADPF_DEFAULT"
     }
   ],
   "AdpfConfig": [
