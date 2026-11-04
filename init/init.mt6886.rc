@@ -306,6 +306,8 @@ on property:sys.boot_completed=1
     write /proc/bootprof 0
     # stop statsd
     stop statsd
+    # Enable ZRAM after boot completes
+    swapon_all /vendor/etc/fstab.enableswap
 
 #
 #  External Modme control related services
