@@ -392,7 +392,7 @@
       "PowerHint": "INTERACTION",
       "Node": "CPUSuperClusterMinFreq",
       "Duration": 150,
-      "Value": "1700000"
+      "Value": "1200000"
     },
     {
       "PowerHint": "INTERACTION",
@@ -404,7 +404,7 @@
       "PowerHint": "INTERACTION",
       "Node": "CPUEfficiencyClusterMinFreq",
       "Duration": 150,
-      "Value": "1500000"
+      "Value": "1100000"
     },
     {
       "PowerHint": "INTERACTION",
@@ -433,31 +433,31 @@
     {
       "PowerHint": "LAUNCH",
       "Node": "CPUSuperClusterMinFreq",
-      "Duration": 1500,
+      "Duration": 1000,
       "Value": "3000000"
     },
     {
       "PowerHint": "LAUNCH",
       "Node": "CPUEfficiencyClusterMinFreq",
-      "Duration": 1500,
+      "Duration": 1000,
       "Value": "2000000"
     },
     {
       "PowerHint": "LAUNCH",
       "Node": "MemFreq",
-      "Duration": 1500,
+      "Duration": 1000,
       "Value": "4266000000"
     },
     {
       "PowerHint": "LAUNCH",
       "Node": "GpuBaseDvfsMargin",
-      "Duration": 1500,
+      "Duration": 1000,
       "Value": "18743356"
     },
     {
       "PowerHint": "LAUNCH",
       "Node": "GpuBaseDvfsStep",
-      "Duration": 1500,
+      "Duration": 1000,
       "Value": "771"
     },
     {
