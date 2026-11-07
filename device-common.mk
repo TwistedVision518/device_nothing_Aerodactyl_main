@@ -7,11 +7,13 @@
 $(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit_only.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 
-# Define this before the first conditional so lunch/dumpvars has a stable default
-# while product makefiles are being parsed.
-PRODUCT_SYSTEM_PARTITIONS_FILE_SYSTEM_TYPE ?= ext4
-
 # A/B
+ifeq ($(WITH_GMS),true)
+PRODUCT_SYSTEM_PARTITIONS_FILE_SYSTEM_TYPE ?= erofs
+else
+PRODUCT_SYSTEM_PARTITIONS_FILE_SYSTEM_TYPE ?= ext4
+endif
+
 ifeq ($(PRODUCT_SYSTEM_PARTITIONS_FILE_SYSTEM_TYPE),ext4)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/virtual_ab_ota/launch_with_vendor_ramdisk.mk)
 else
