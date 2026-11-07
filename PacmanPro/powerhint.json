@@ -536,18 +536,18 @@
       "HBoostSevereJankThreshold": 6,
       "HBoostUclampMinCeilingRange": [
         480,
-        720
+        640
       ],
       "HBoostUclampMinFloorRange": [
-        200,
-        400
+        150,
+        300
       ],
       "JankCheckTimeFactor": 1.2,
       "LowFrameRateThreshold": 25,
       "MaxRecordsNum": 50,
       "HeuristicRampup": true,
       "DefaultRampupMult": 1,
-      "HighRampupMult": 4
+      "HighRampupMult": 2
     },
     {
       "Name": "ADPF_SF",
