@@ -558,6 +558,6 @@
     }
   ],
   "OtherConfigs": {
-    "EnableSFPreferHighCap": true
+    "EnableSFPreferHighCap": false
   }
 }
