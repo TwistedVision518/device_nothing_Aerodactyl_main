@@ -414,37 +414,37 @@
     {
       "PowerHint": "LAUNCH",
       "Node": "PMQoSCpuDmaLatency",
-      "Duration": 1000,
+      "Duration": 750,
       "Value": "44"
     },
     {
       "PowerHint": "LAUNCH",
       "Node": "CPUSuperClusterMinFreq",
-      "Duration": 1000,
-      "Value": "2800000"
+      "Duration": 750,
+      "Value": "2600000"
     },
     {
       "PowerHint": "LAUNCH",
       "Node": "CPUEfficiencyClusterMinFreq",
-      "Duration": 1000,
-      "Value": "2000000"
+      "Duration": 750,
+      "Value": "1900000"
     },
     {
       "PowerHint": "LAUNCH",
       "Node": "MemFreq",
-      "Duration": 1000,
+      "Duration": 750,
       "Value": "4266000000"
     },
     {
       "PowerHint": "LAUNCH",
       "Node": "GpuBaseDvfsMargin",
-      "Duration": 1000,
+      "Duration": 750,
       "Value": "18743356"
     },
     {
       "PowerHint": "LAUNCH",
       "Node": "GpuBaseDvfsStep",
-      "Duration": 1000,
+      "Duration": 750,
       "Value": "771"
     },
     {
