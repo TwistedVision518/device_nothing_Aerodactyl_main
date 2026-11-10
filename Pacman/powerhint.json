@@ -459,6 +459,12 @@
       "Duration": 0,
       "Value": "EXPENSIVE_RENDERING"
     },
+        {
+      "PowerHint": "EXPENSIVE_RENDERING",
+      "Node": "GpuPwrLevel",
+      "Duration": 0,
+      "Value": "-1"
+    },
     {
       "PowerHint": "EXPENSIVE_RENDERING",
       "Node": "MemFreq",
