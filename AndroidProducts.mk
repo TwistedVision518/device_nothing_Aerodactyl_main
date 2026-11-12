@@ -4,5 +4,5 @@
 #
 
 PRODUCT_MAKEFILES := \
-    $(LOCAL_DIR)/custom_Pacman.mk \
-    $(LOCAL_DIR)/custom_PacmanPro.mk
+    $(LOCAL_DIR)/voltage_Pacman.mk \
+    $(LOCAL_DIR)/voltage_PacmanPro.mk
