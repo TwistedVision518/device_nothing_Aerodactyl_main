@@ -5,4 +5,7 @@
 <resources>
     <!-- Do not translate. Default access point SSID used for tethering -->
     <string name="wifi_tether_configure_ssid_default" translatable="false">Nothing Phone (2a) Plus</string>
+
+    <!-- Disable driver ACS offload so Android framework picks the channel -->
+    <bool name="config_wifi_softap_acs_supported">false</bool>
 </resources>
