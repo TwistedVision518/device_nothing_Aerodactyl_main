@@ -20,12 +20,13 @@ WITH_GMS := true
 
 #blur
 TARGET_ENABLE_BLUR := true
+TARGET_LOW_END_BLUR := true
 
 #bcr
 WITH_BCR := true
 
 #exclude plauncher
-WITH_PIXEL_LAUNCHER := false
+WITH_PIXEL_LAUNCHER := true
 
 #vulkan
 USE_DEFAULT_VULKAN := true
