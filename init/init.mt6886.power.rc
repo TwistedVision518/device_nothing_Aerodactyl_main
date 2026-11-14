@@ -135,6 +135,11 @@ on property:sys.boot_completed=1
     # Increase PELT multiplier post-boot to allow faster ramp-down on load drop
     write /proc/sys/kernel/sched_pelt_multiplier 4
 
+    # Schedutil rate limits: allow fast ramp-down (500µs) but throttle ramp-up (2ms)
+    # This prevents the CPU from hunting high frequencies during idle-ish bursty workloads
+    write /sys/devices/system/cpu/cpufreq/policy0/schedutil/rate_limit_us 500
+    write /sys/devices/system/cpu/cpufreq/policy6/schedutil/rate_limit_us 500
+
     # Utilization Clamping
     # Tuning
     write /proc/sys/kernel/sched_util_clamp_min_rt_default 0
