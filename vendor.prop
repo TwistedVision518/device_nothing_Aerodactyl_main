@@ -303,6 +303,9 @@ persist.vendor.radio.mtk_ps2_rat=N/L/W/G
 persist.vendor.radio.mtk_ps3_rat=G
 persist.vendor.radio.nr_display_rule=0
 persist.vendor.radio.oem_urc_enable=0
+persist.vendor.radio.cellinfo.timer=60
+persist.vendor.radio.cellinfo.min_interval=10000
+ro.telephony.cellinfo.min_interval_ms=10000
 persist.vendor.radio.smart.data.switch=1
 persist.vendor.vilte_support=1
 persist.vendor.viwifi_support=1
@@ -361,11 +364,6 @@ ro.vendor.wifi.sap.interface=ap0
 ro.vendor.wlan.chrdev=wmt_chrdev_wifi_connac2
 ro.vendor.wlan.gen=gen4m_6886
 wifi.supplicant_scan_interval=180
-
-# ZRAM writeback
-ro.zram.mark_idle_delay_mins=60
-ro.zram.first_wb_delay_mins=1440
-ro.zram.periodic_wb_delay_hours=24
 
 # Zygote
 zygote.critical_window.minute=10

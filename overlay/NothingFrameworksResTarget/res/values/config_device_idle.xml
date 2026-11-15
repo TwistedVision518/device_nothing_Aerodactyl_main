@@ -28,9 +28,4 @@
     <!-- Default for DeviceIdleController.Constants.IDLE_AFTER_INACTIVE_TIMEOUT -->
     <integer name="device_idle_idle_after_inactive_to_ms">30000</integer>
 
-    <!-- Default for DeviceIdleController.Constants.SENSING_TIMEOUT -->
-    <integer name="device_idle_sensing_to_ms">0</integer>
-
-    <!-- Default for DeviceIdleController.Constants.LOCATING_TIMEOUT -->
-    <integer name="device_idle_locating_to_ms">0</integer>
 </resources>
