@@ -60,6 +60,14 @@ vendor.debug.morpho.zoomeis.enable=true
 # Crypto
 ro.crypto.volume.options=aes-256-xts:aes-256-hctr2
 
+# Dalvik
+dalvik.vm.heapgrowthlimit=256m
+dalvik.vm.heapsize=512m
+dalvik.vm.heapstartsize=16m
+dalvik.vm.heaptargetutilization=0.75
+dalvik.vm.heapminfree=512k
+dalvik.vm.heapmaxfree=8m
+
 # Display
 debug.graphics.game_default_frame_rate.disabled=true
 debug.mediatek.disp_decompress=1
@@ -294,7 +302,7 @@ persist.vendor.radio.mtk_mipc_support=1
 persist.vendor.radio.mtk_ps2_rat=N/L/W/G
 persist.vendor.radio.mtk_ps3_rat=G
 persist.vendor.radio.nr_display_rule=0
-persist.vendor.radio.oem_urc_enable=1
+persist.vendor.radio.oem_urc_enable=0
 persist.vendor.radio.smart.data.switch=1
 persist.vendor.vilte_support=1
 persist.vendor.viwifi_support=1
@@ -352,6 +360,7 @@ ro.vendor.wifi.sap.concurrent.iface=ap1
 ro.vendor.wifi.sap.interface=ap0
 ro.vendor.wlan.chrdev=wmt_chrdev_wifi_connac2
 ro.vendor.wlan.gen=gen4m_6886
+wifi.supplicant_scan_interval=180
 
 # ZRAM writeback
 ro.zram.mark_idle_delay_mins=60
