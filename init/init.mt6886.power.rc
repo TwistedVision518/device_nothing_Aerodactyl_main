@@ -122,8 +122,8 @@ on property:sys.boot_completed=1
     write /dev/sys/block/by-name/rootdisk/queue/nr_requests 128
     write /dev/sys/block/by-name/rootdisk/queue/rq_affinity 2
 
-    # Adjust watermark level
-    write /proc/sys/vm/watermark_scale_factor 200
+    # Adjust watermark level (prevent aggressive kswapd background churn)
+    write /proc/sys/vm/watermark_scale_factor 20
 
     # Back to default VM settings
     write /proc/sys/vm/dirty_expire_centisecs 3000
@@ -133,18 +133,17 @@ on property:sys.boot_completed=1
     write /sys/devices/system/cpu/cpufreq/policy0/scaling_governor "schedutil"
     write /sys/devices/system/cpu/cpufreq/policy6/scaling_governor "schedutil"
 
-    # Increase PELT multiplier post-boot to allow faster ramp-down on load drop
-    write /proc/sys/kernel/sched_pelt_multiplier 4
+    # Standard PELT multiplier (32ms half-life)
+    write /proc/sys/kernel/sched_pelt_multiplier 1
 
-    # Schedutil rate limits: allow fast ramp-down (500µs) but throttle ramp-up (2ms)
-    # This prevents the CPU from hunting high frequencies during idle-ish bursty workloads
-    write /sys/devices/system/cpu/cpufreq/policy0/schedutil/rate_limit_us 500
-    write /sys/devices/system/cpu/cpufreq/policy6/schedutil/rate_limit_us 500
+    # Schedutil rate limits (1ms) to avoid high frequency hunting
+    write /sys/devices/system/cpu/cpufreq/policy0/schedutil/rate_limit_us 1000
+    write /sys/devices/system/cpu/cpufreq/policy6/schedutil/rate_limit_us 1000
 
     # Utilization Clamping
     # Tuning
     write /proc/sys/kernel/sched_util_clamp_min_rt_default 0
-    write /proc/sys/kernel/sched_util_clamp_min 128
+    write /proc/sys/kernel/sched_util_clamp_min 0
 
     # rt
     write /dev/cpuctl/rt/cpu.uclamp.latency_sensitive 1
@@ -168,19 +167,19 @@ on property:sys.boot_completed=1
     write /dev/cpuctl/background/cpu.shares 1024
 
     # foreground
-    write /dev/cpuctl/foreground/cpu.uclamp.latency_sensitive 1
+    write /dev/cpuctl/foreground/cpu.uclamp.latency_sensitive 0
     write /dev/cpuctl/foreground/cpu.uclamp.max 80
     write /dev/cpuctl/foreground/cpu.uclamp.min 0
     write /dev/cpuctl/foreground/cpu.shares 20480
 
     # foreground_window
-    write /dev/cpuctl/foreground_window/cpu.uclamp.latency_sensitive 1
+    write /dev/cpuctl/foreground_window/cpu.uclamp.latency_sensitive 0
     write /dev/cpuctl/foreground_window/cpu.uclamp.max 80
     write /dev/cpuctl/foreground_window/cpu.uclamp.min 0
     write /dev/cpuctl/foreground_window/cpu.shares 10240
 
     # top-app
-    write /dev/cpuctl/top-app/cpu.uclamp.latency_sensitive 1
+    write /dev/cpuctl/top-app/cpu.uclamp.latency_sensitive 0
     write /dev/cpuctl/top-app/cpu.uclamp.max max
     write /dev/cpuctl/top-app/cpu.uclamp.min 0
     write /dev/cpuctl/top-app/cpu.shares 20480
