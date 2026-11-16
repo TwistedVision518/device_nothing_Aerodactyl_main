@@ -120,7 +120,7 @@ ro.surface_flinger.has_wide_color_display=true
 ro.surface_flinger.max_frame_buffer_acquired_buffers=3
 ro.surface_flinger.primary_display_orientation=ORIENTATION_0
 ro.surface_flinger.protected_contents=true
-ro.surface_flinger.set_idle_timer_ms=4500
+ro.surface_flinger.set_idle_timer_ms=500
 ro.surface_flinger.set_touch_timer_ms=200
 ro.surface_flinger.supports_background_blur=1
 ro.surface_flinger.use_content_detection_for_refresh_rate=true
@@ -182,7 +182,6 @@ ro.vendor.arm.egl.configs.r16_g16_b16_a16_64bit_float.recordable=false
 ro.incremental.enable=yes
 
 # HWUI
-debug.hwui.target_cpu_time_percent=30
 debug.hwui.use_hint_manager=true
 
 # Keystore
