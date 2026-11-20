@@ -79,6 +79,13 @@ debug.sf.early.sf.duration=15600000
 debug.sf.early.app.duration=16600000
 debug.sf.earlyGl.sf.duration=15600000
 debug.sf.earlyGl.app.duration=16600000
+# Aerodactyl work durations for the 120 Hz display mode.
+debug.sf.late.sf.duration.120=12300000
+debug.sf.late.app.duration.120=11600000
+debug.sf.early.sf.duration.120=12300000
+debug.sf.early.app.duration.120=11600000
+debug.sf.earlyGl.sf.duration.120=12300000
+debug.sf.earlyGl.app.duration.120=11600000
 debug.sf.hwc.min.duration=2000000
 debug.sf.predict_hwc_composition_strategy=0
 debug.sf.disable_client_composition_cache=0
