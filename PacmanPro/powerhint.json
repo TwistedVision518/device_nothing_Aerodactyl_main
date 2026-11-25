@@ -413,24 +413,6 @@
       "Value": "44"
     },
     {
-      "PowerHint": "LAUNCH",
-      "Node": "CPUSuperClusterMinFreq",
-      "Duration": 500,
-      "Value": "2800000"
-    },
-    {
-      "PowerHint": "LAUNCH",
-      "Node": "CPUEfficiencyClusterMinFreq",
-      "Duration": 500,
-      "Value": "1900000"
-    },
-    {
-      "PowerHint": "LAUNCH",
-      "Node": "MemFreq",
-      "Duration": 500,
-      "Value": "4266000000"
-    },
-    {
       "PowerHint": "AUDIO_STREAMING_LOW_LATENCY",
       "Node": "PowerHALAudioState",
       "Duration": 0,
