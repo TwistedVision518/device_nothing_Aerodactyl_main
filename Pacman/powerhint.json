@@ -400,24 +400,6 @@
       "Value": "44"
     },
     {
-      "PowerHint": "LAUNCH",
-      "Node": "CPUSuperClusterMinFreq",
-      "Duration": 500,
-      "Value": "2600000"
-    },
-    {
-      "PowerHint": "LAUNCH",
-      "Node": "CPUEfficiencyClusterMinFreq",
-      "Duration": 500,
-      "Value": "1900000"
-    },
-    {
-      "PowerHint": "LAUNCH",
-      "Node": "MemFreq",
-      "Duration": 500,
-      "Value": "4266000000"
-    },
-    {
       "PowerHint": "EXPENSIVE_RENDERING",
       "Node": "PowerHALRenderingState",
       "Duration": 0,
