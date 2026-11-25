@@ -243,8 +243,8 @@ service vendor.hwcomposer-3-1 /vendor/bin/hw/android.hardware.graphics.composer@
 # GED exposes these attributes as 0660/0440. Allow the Parts domain to
 # read the limits; vendor init performs writes using the existing labels.
 on boot
-    chmod 0664 /sys/kernel/ged/hal/custom_boost_gpu_freq
-    chmod 0664 /sys/kernel/ged/hal/custom_upbound_gpu_freq
+    chmod 0444 /sys/kernel/ged/hal/custom_boost_gpu_freq
+    chmod 0444 /sys/kernel/ged/hal/custom_upbound_gpu_freq
     chmod 0444 /sys/kernel/ged/hal/current_freqency
     chmod 0444 /sys/kernel/ged/hal/total_gpu_freq_level_count
 
