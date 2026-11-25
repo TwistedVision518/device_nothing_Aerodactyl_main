@@ -7,3 +7,16 @@ persist.vendor.overlay.fp_vendor    u:object_r:vendor_fingerprint_prop:s0
 
 # Power
 vendor.touch.double_tap_to_wake    u:object_r:vendor_power_prop:s0
+
+vendor.pacmanparts.cpu1 u:object_r:vendor_pacman_parts_prop:s0 exact enum 0 1
+vendor.pacmanparts.cpu2 u:object_r:vendor_pacman_parts_prop:s0 exact enum 0 1
+vendor.pacmanparts.cpu3 u:object_r:vendor_pacman_parts_prop:s0 exact enum 0 1
+vendor.pacmanparts.cpu4 u:object_r:vendor_pacman_parts_prop:s0 exact enum 0 1
+vendor.pacmanparts.cpu5 u:object_r:vendor_pacman_parts_prop:s0 exact enum 0 1
+vendor.pacmanparts.cpu7 u:object_r:vendor_pacman_parts_prop:s0 exact enum 0 1
+vendor.pacmanparts.policy0.gov u:object_r:vendor_pacman_parts_prop:s0 exact string
+vendor.pacmanparts.policy0.max u:object_r:vendor_pacman_parts_prop:s0 exact uint
+vendor.pacmanparts.policy6.gov u:object_r:vendor_pacman_parts_prop:s0 exact string
+vendor.pacmanparts.policy6.max u:object_r:vendor_pacman_parts_prop:s0 exact uint
+vendor.pacmanparts.gpu.floor u:object_r:vendor_pacman_parts_prop:s0 exact uint
+vendor.pacmanparts.gpu.ceiling u:object_r:vendor_pacman_parts_prop:s0 exact uint

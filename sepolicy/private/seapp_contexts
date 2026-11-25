@@ -1,2 +1,4 @@
 # Glyph
 user=system seinfo=platform isPrivApp=true name=co.aospa.glyph domain=glyph_app type=system_app_data_file levelFrom=all
+
+user=_app seinfo=platform name=org.lineageos.settings.pacmanparts domain=pacman_parts_app type=app_data_file levelFrom=all

@@ -239,3 +239,48 @@ service vendor.hwcomposer-3-1 /vendor/bin/hw/android.hardware.graphics.composer@
     onrestart restart surfaceflinger
     task_profiles ProcessCapacityHigh HighPerformance
     override
+
+# GED exposes these attributes as 0660/0440. Allow the Parts domain to
+# read the limits; vendor init performs writes using the existing labels.
+on boot
+    chmod 0664 /sys/kernel/ged/hal/custom_boost_gpu_freq
+    chmod 0664 /sys/kernel/ged/hal/custom_upbound_gpu_freq
+    chmod 0444 /sys/kernel/ged/hal/current_freqency
+    chmod 0444 /sys/kernel/ged/hal/total_gpu_freq_level_count
+
+# Manual adjustments from the owner-only Parts screen. No boot-time defaults.
+on property:vendor.pacmanparts.cpu1=*
+    write /sys/devices/system/cpu/cpu1/online ${vendor.pacmanparts.cpu1}
+
+on property:vendor.pacmanparts.cpu2=*
+    write /sys/devices/system/cpu/cpu2/online ${vendor.pacmanparts.cpu2}
+
+on property:vendor.pacmanparts.cpu3=*
+    write /sys/devices/system/cpu/cpu3/online ${vendor.pacmanparts.cpu3}
+
+on property:vendor.pacmanparts.cpu4=*
+    write /sys/devices/system/cpu/cpu4/online ${vendor.pacmanparts.cpu4}
+
+on property:vendor.pacmanparts.cpu5=*
+    write /sys/devices/system/cpu/cpu5/online ${vendor.pacmanparts.cpu5}
+
+on property:vendor.pacmanparts.cpu7=*
+    write /sys/devices/system/cpu/cpu7/online ${vendor.pacmanparts.cpu7}
+
+on property:vendor.pacmanparts.policy0.gov=*
+    write /sys/devices/system/cpu/cpufreq/policy0/scaling_governor ${vendor.pacmanparts.policy0.gov}
+
+on property:vendor.pacmanparts.policy0.max=*
+    write /sys/devices/system/cpu/cpufreq/policy0/scaling_max_freq ${vendor.pacmanparts.policy0.max}
+
+on property:vendor.pacmanparts.policy6.gov=*
+    write /sys/devices/system/cpu/cpufreq/policy6/scaling_governor ${vendor.pacmanparts.policy6.gov}
+
+on property:vendor.pacmanparts.policy6.max=*
+    write /sys/devices/system/cpu/cpufreq/policy6/scaling_max_freq ${vendor.pacmanparts.policy6.max}
+
+on property:vendor.pacmanparts.gpu.floor=*
+    write /sys/kernel/ged/hal/custom_boost_gpu_freq ${vendor.pacmanparts.gpu.floor}
+
+on property:vendor.pacmanparts.gpu.ceiling=*
+    write /sys/kernel/ged/hal/custom_upbound_gpu_freq ${vendor.pacmanparts.gpu.ceiling}

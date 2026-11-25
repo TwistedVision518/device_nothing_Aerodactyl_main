@@ -1,0 +1,26 @@
+<resources>
+    <string name="parts_name" translatable="false">PacmanParts</string>
+    <string name="parts_summary">CPU, GPU and speaker controls</string>
+    <string name="cpu">CPU core control</string>
+    <string name="kernel">Kernel manager</string>
+    <string name="gpu">GPU manager</string>
+    <string name="speaker">Clear speaker</string>
+    <string name="speaker_start">Play cleaning tone through the built-in speaker</string>
+    <string name="speaker_stop">Stop cleaning tone</string>
+    <string name="speaker_failed">Could not play the tone through the built-in speaker.</string>
+    <string name="unavailable">Unavailable on this kernel</string>
+    <string name="core">CPU %1$d online</string>
+    <string name="cluster_anchor">Kept online for this CPU cluster</string>
+    <string name="governor">CPU %1$d cluster governor</string>
+    <string name="max_freq">CPU %1$d cluster maximum frequency</string>
+    <string name="khz">%1$s kHz</string>
+    <string name="gpu_floor">GPU minimum performance level</string>
+    <string name="gpu_ceiling">GPU maximum performance level</string>
+    <string name="opp">Level %1$s</string>
+    <string name="opp_description">Level 0 is the fastest. Higher numbers select lower frequencies.</string>
+    <string name="restore">Apply tuning on boot</string>
+    <string name="restore_summary">Restore manually selected CPU governors, frequency limits and GPU levels.</string>
+    <string name="write_failed">The kernel did not accept this setting.</string>
+    <string name="current_gpu">Current GPU frequency</string>
+    <string name="reset">Reset to device defaults</string>
+</resources>

@@ -1,0 +1,5 @@
+typeattribute pacman_parts_app coredomain;
+app_domain(pacman_parts_app)
+allow pacman_parts_app app_api_service:service_manager find;
+allow pacman_parts_app sysfs_devices_system_cpu:dir r_dir_perms;
+allow pacman_parts_app sysfs_devices_system_cpu:file r_file_perms;

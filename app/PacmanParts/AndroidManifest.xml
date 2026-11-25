@@ -1,0 +1,21 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="org.lineageos.settings.pacmanparts">
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <application android:label="@string/parts_name" android:allowBackup="false"
+        android:theme="@style/Theme.SubSettingsBase.Expressive">
+        <activity android:name=".PartsActivity" android:exported="true"
+            android:permission="android.permission.WRITE_SECURE_SETTINGS">
+            <intent-filter>
+                <action android:name="com.android.settings.action.IA_SETTINGS" />
+            </intent-filter>
+            <meta-data android:name="com.android.settings.category"
+                android:value="com.android.settings.category.ia.system" />
+            <meta-data android:name="com.android.settings.summary" android:resource="@string/parts_summary" />
+            <meta-data android:name="com.android.settings.icon" android:resource="@drawable/ic_kernel_manager" />
+            <meta-data android:name="com.android.settings.profile" android:value="primary_profile_only" />
+        </activity>
+        <receiver android:name=".BootReceiver" android:exported="false">
+            <intent-filter><action android:name="android.intent.action.BOOT_COMPLETED" /></intent-filter>
+        </receiver>
+    </application>
+</manifest>
