@@ -437,7 +437,7 @@
       "UclampMin_Init": 180,
       "UclampMin_LoadUp": 480,
       "UclampMin_LoadReset": 384,
-      "UclampMin_High": 768,
+      "UclampMin_High": 640,
       "UclampMin_Low": 0,
       "ReportingRateLimitNs": 83333330,
       "TargetTimeFactor": 1.0,
