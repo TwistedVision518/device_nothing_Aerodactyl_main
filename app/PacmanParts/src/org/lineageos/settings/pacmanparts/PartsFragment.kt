@@ -1,246 +1,328 @@
 // SPDX-License-Identifier: Apache-2.0
 package org.lineageos.settings.pacmanparts
 
-import android.content.Context
-import android.media.AudioDeviceInfo
-import android.media.AudioRouting
-import android.media.AudioManager
-import android.media.MediaPlayer
+import android.app.Dialog
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
-import android.widget.Toast
+import android.view.View
+import androidx.appcompat.app.AlertDialog
+import androidx.fragment.app.DialogFragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.preference.ListPreference
 import androidx.preference.Preference
+import androidx.preference.PreferenceCategory
 import androidx.preference.SwitchPreferenceCompat
-import com.android.settingslib.collapsingtoolbar.R.id.content_frame
+import com.android.settingslib.widget.IntroPreference
+import com.android.settingslib.widget.SectionButtonPreference
 import com.android.settingslib.widget.SettingsBasePreferenceFragment
+import java.text.NumberFormat
 
 class PartsFragment : SettingsBasePreferenceFragment() {
     private val page get() = Page.valueOf(arguments?.getString("page") ?: Page.HOME.name)
-    private val handler = Handler(Looper.getMainLooper())
-    private var player: MediaPlayer? = null
-    private var pending = false
-    private val stopTone = Runnable { stopSpeaker() }
+    private val tuning by lazy { ViewModelProvider(requireActivity())[TuningViewModel::class.java] }
+    private var speaker: SpeakerCycle? = null
+    private val resetControls get() = when (page) {
+        Page.KERNEL -> Hardware.policies
+        Page.GPU -> Hardware.gpu
+        else -> emptyList()
+    }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         preferenceScreen = preferenceManager.createPreferenceScreen(requireContext())
-        render()
+        when (page) {
+            Page.HOME -> {
+                status(R.drawable.ic_cpu, R.string.loading, R.string.cpu_online_label)
+                group(R.string.performance).apply {
+                    link(Page.CORES, R.drawable.ic_cpu, R.string.cpu_summary)
+                    link(Page.KERNEL, R.drawable.ic_kernel_manager, R.string.kernel_summary)
+                    link(Page.GPU, R.drawable.ic_gpu_manager, R.string.gpu_summary)
+                }
+                group(R.string.maintenance).link(
+                    Page.SPEAKER, R.drawable.ic_clear_speaker, R.string.speaker_summary
+                )
+                group(R.string.boot).addPreference(restorePreference())
+            }
+            Page.CORES -> {
+                status(R.drawable.ic_cpu, R.string.loading, R.string.cpu_online_label)
+                coreGroup(R.string.efficiency_cluster, Hardware.cores.take(6))
+                coreGroup(R.string.performance_cluster, Hardware.cores.drop(6))
+            }
+            Page.KERNEL -> {
+                intro(R.string.kernel_intro)
+                policyGroup(R.string.efficiency_cluster, Hardware.policies.take(2))
+                policyGroup(R.string.performance_cluster, Hardware.policies.drop(2))
+                resetButton()
+            }
+            Page.GPU -> {
+                status(R.drawable.ic_gpu_manager, R.string.loading, R.string.current_gpu)
+                intro(R.string.opp_description)
+                policyGroup(R.string.gpu_limits, Hardware.gpu)
+                resetButton()
+            }
+            Page.SPEAKER -> {
+                status(R.drawable.ic_clear_speaker, R.string.speaker_ready, R.string.speaker_summary)
+                preferenceScreen.addPreference(SectionButtonPreference(requireContext()).apply {
+                    key = SPEAKER_BUTTON
+                    setTitle(R.string.speaker_start)
+                    setOnClickListener {
+                        speaker?.let { cycle -> if (cycle.active) cycle.stop() else cycle.start() }
+                    }
+                })
+            }
+        }
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        if (page == Page.SPEAKER) {
+            speaker = SpeakerCycle(requireContext().applicationContext, ::updateSpeaker)
+        } else {
+            tuning.state.observe(viewLifecycleOwner, ::showTuning)
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        requireActivity().setTitle(page.title)
     }
 
     override fun onResume() {
         super.onResume()
-        render()
+        if (page != Page.SPEAKER) tuning.refresh()
     }
 
-    private fun render() {
-        val context = requireContext()
-        preferenceScreen.removeAll()
-        preferenceScreen.isEnabled = !pending
-        requireActivity().setTitle(when (page) {
-            Page.HOME -> R.string.parts_name
-            Page.CORES -> R.string.cpu
-            Page.KERNEL -> R.string.kernel
-            Page.GPU -> R.string.gpu
+    override fun onPause() {
+        speaker?.stop()
+        super.onPause()
+    }
+
+    override fun onDestroyView() {
+        speaker?.stop()
+        speaker = null
+        super.onDestroyView()
+    }
+
+    private fun status(icon: Int, titleId: Int, description: Int) {
+        preferenceScreen.addPreference(StatusPreference(requireContext()).apply {
+            key = STATUS
+            setIcon(icon)
+            setTitle(titleId)
+            setSummary(description)
         })
+    }
+
+    private fun intro(description: Int) {
+        preferenceScreen.addPreference(IntroPreference(requireContext()).apply {
+            key = INTRO
+            setSummary(description)
+        })
+    }
+
+    private fun group(titleId: Int) = PreferenceCategory(requireContext()).apply {
+        setTitle(titleId)
+        preferenceScreen.addPreference(this)
+    }
+
+    private fun PreferenceCategory.link(destination: Page, iconId: Int, summaryId: Int) {
+        addPreference(Preference(requireContext()).apply {
+            setTitle(destination.title)
+            setSummary(summaryId)
+            setIcon(iconId)
+            widgetLayoutResource = R.layout.parts_navigation_chevron
+            setOnPreferenceClickListener {
+                (requireActivity() as PartsActivity).openPage(destination)
+                true
+            }
+        })
+    }
+
+    private fun restorePreference(): Preference {
+        val prefs = Hardware.preferences(requireContext())
+        return SwitchPreferenceCompat(requireContext()).apply {
+            key = "restore"
+            isPersistent = false
+            setTitle(R.string.restore)
+            setSummary(R.string.restore_summary)
+            isChecked = prefs.getBoolean(key, false)
+            setOnPreferenceChangeListener { _, enabled ->
+                prefs.edit().putBoolean(key, enabled as Boolean).apply()
+                true
+            }
+        }
+    }
+
+    private fun coreGroup(titleId: Int, controls: List<Control>) {
+        val group = group(titleId)
+        for (control in controls) {
+            group.addPreference(SwitchPreferenceCompat(requireContext()).apply {
+                key = control.key
+                isPersistent = false
+                title = getString(control.title, control.index)
+                isEnabled = false
+                setOnPreferenceChangeListener { _, enabled ->
+                    tuning.change(control, if (enabled == true) "1" else "0")
+                    false
+                }
+            })
+        }
+    }
+
+    private fun policyGroup(titleId: Int, controls: List<Control>) {
+        val group = group(titleId)
+        for (control in controls) {
+            group.addPreference(ListPreference(requireContext()).apply {
+                key = control.key
+                isPersistent = false
+                setTitle(control.title)
+                dialogTitle = title
+                isEnabled = false
+                setOnPreferenceChangeListener { _, selected ->
+                    tuning.change(control, selected as String)
+                    false
+                }
+            })
+        }
+    }
+
+    private fun resetButton() {
+        preferenceScreen.addPreference(SectionButtonPreference(requireContext()).apply {
+            key = RESET
+            isEnabled = false
+            setTitle(R.string.reset)
+            setOnClickListener {
+                if (!childFragmentManager.isStateSaved &&
+                    childFragmentManager.findFragmentByTag(RESET) == null
+                ) {
+                    ResetTuningDialog().showNow(childFragmentManager, RESET)
+                }
+            }
+        })
+    }
+
+    internal fun resetTuning() {
+        if (resetControls.isNotEmpty()) tuning.reset(resetControls)
+    }
+
+    private fun showTuning(state: TuningState) {
+        val snapshot = state.snapshot
+        val writable = snapshot != null && !state.applying
         when (page) {
-            Page.HOME -> {
-                link(Page.CORES, R.string.cpu, R.drawable.ic_cpu)
-                link(Page.KERNEL, R.string.kernel, R.drawable.ic_kernel_manager)
-                link(Page.GPU, R.string.gpu, R.drawable.ic_gpu_manager)
-                preferenceScreen.addPreference(Preference(context).apply {
-                    key = "speaker"
-                    setTitle(R.string.speaker)
-                    setIcon(R.drawable.ic_clear_speaker)
-                    setSummary(if (player == null) R.string.speaker_start else R.string.speaker_stop)
-                    setOnPreferenceClickListener {
-                        if (player == null) startSpeaker() else stopSpeaker()
-                        true
-                    }
-                })
-                val prefs = Hardware.preferences(context)
-                preferenceScreen.addPreference(SwitchPreferenceCompat(context).apply {
-                    isPersistent = false
-                    setTitle(R.string.restore)
-                    setSummary(R.string.restore_summary)
-                    isChecked = prefs.getBoolean("restore", false)
-                    setOnPreferenceChangeListener { _, enabled ->
-                        prefs.edit().putBoolean("restore", enabled as Boolean).apply()
-                        true
-                    }
-                })
+            Page.HOME, Page.CORES -> updateCpuStatus(snapshot, state.applying)
+            Page.KERNEL -> findPreference<IntroPreference>(INTRO)?.setSummary(
+                when {
+                    state.applying -> R.string.applying
+                    snapshot == null -> R.string.loading
+                    else -> R.string.kernel_intro
+                }
+            )
+            Page.GPU -> findPreference<StatusPreference>(STATUS)?.apply {
+                val frequency = snapshot?.gpuKHz
+                title = when {
+                    frequency != null -> getString(R.string.khz, NumberFormat.getIntegerInstance().format(frequency))
+                    snapshot == null -> getString(R.string.loading)
+                    else -> getString(R.string.unavailable)
+                }
+                setSummary(if (state.applying) R.string.applying else R.string.current_gpu)
+                busy = snapshot == null || state.applying
             }
-            Page.CORES -> Hardware.cores.forEach { control ->
-                val current = Hardware.value(control)
-                val anchor = control.index == 0 || control.index == 6
-                preferenceScreen.addPreference(SwitchPreferenceCompat(context).apply {
-                    isPersistent = false
-                    title = getString(control.title, control.index)
-                    isEnabled = !anchor && current in listOf("0", "1")
-                    isChecked = current == "1" || (control.index == 0 && current == null)
-                    if (anchor) setSummary(R.string.cluster_anchor)
-                    else if (!isEnabled) setSummary(R.string.unavailable)
-                    setOnPreferenceChangeListener { _, enabled ->
-                        change(control, if (enabled == true) "1" else "0")
-                        false
-                    }
-                })
-            }
-            Page.KERNEL -> {
-                Hardware.policies.forEach(::selector)
-                resetButton(Hardware.policies)
-            }
-            Page.GPU -> {
-                preferenceScreen.addPreference(Preference(context).apply {
-                    setSummary(R.string.opp_description)
-                    isSelectable = false
-                })
-                Hardware.currentGpuKHz()?.let { frequency ->
-                    preferenceScreen.addPreference(Preference(context).apply {
-                        setTitle(R.string.current_gpu)
-                        summary = getString(R.string.khz, frequency.toString())
-                        isSelectable = false
+            Page.SPEAKER -> Unit
+        }
+
+        if (page == Page.CORES) {
+            for (control in Hardware.cores) {
+                val current = snapshot?.controls?.get(control)?.value
+                val known = current == "0" || current == "1"
+                findPreference<SwitchPreferenceCompat>(control.key)?.apply {
+                    val managed = Hardware.isManagedCore(control)
+                    isEnabled = writable && known && !managed
+                    isChecked = current == "1"
+                    setSummary(when {
+                        snapshot == null -> R.string.loading
+                        !known -> R.string.unavailable
+                        managed -> R.string.cluster_anchor
+                        isChecked -> R.string.online
+                        else -> R.string.offline
                     })
                 }
-                Hardware.gpu.forEach(::selector)
-                resetButton(Hardware.gpu)
             }
         }
-    }
-
-    private fun link(destination: Page, titleId: Int, iconId: Int) {
-        preferenceScreen.addPreference(Preference(requireContext()).apply {
-            setTitle(titleId)
-            setIcon(iconId)
-            setOnPreferenceClickListener {
-                val detail = PartsFragment().apply {
-                    arguments = Bundle().apply { putString("page", destination.name) }
+        for (control in resetControls) {
+            val value = snapshot?.controls?.get(control)
+            findPreference<ListPreference>(control.key)?.apply {
+                val options = value?.choices.orEmpty()
+                entryValues = options.toTypedArray()
+                entries = options.map { label(control, it) }.toTypedArray()
+                this.value = value?.value
+                summary = when {
+                    snapshot == null -> getString(R.string.loading)
+                    value?.value == null -> getString(R.string.unavailable)
+                    else -> label(control, value.value)
                 }
-                parentFragmentManager.beginTransaction().replace(content_frame, detail)
-                    .addToBackStack(destination.name).commit()
-                true
+                isEnabled = writable && value?.value != null && options.isNotEmpty()
             }
-        })
-    }
-
-    private fun selector(control: Control) {
-        val options = Hardware.choices(control)
-        val current = Hardware.value(control)
-        fun label(value: String) = when {
-            control in Hardware.gpu -> getString(R.string.opp, value)
-            control.node.name == "scaling_max_freq" -> getString(R.string.khz, value)
-            else -> value
         }
-        preferenceScreen.addPreference(ListPreference(requireContext()).apply {
-            isPersistent = false
-            title = getString(control.title, control.index)
-            dialogTitle = title
-            entries = options.map(::label).toTypedArray()
-            entryValues = options.toTypedArray()
-            value = current
-            isEnabled = current != null && options.isNotEmpty()
-            summary = if (isEnabled) label(current!!) else getString(R.string.unavailable)
-            // AndroidX uses the key to reconnect ListPreferenceDialogFragment after rotation.
-            key = control.key
-            setOnPreferenceChangeListener { _, selected ->
-                change(control, selected as String)
-                false
-            }
-        })
-    }
-
-    private fun resetButton(controls: List<Control>) {
-        val context = requireContext().applicationContext
-        preferenceScreen.addPreference(Preference(requireContext()).apply {
-            setTitle(R.string.reset)
-            setOnPreferenceClickListener {
-                updateHardware {
-                    val prefs = Hardware.preferences(context)
-                    var success = true
-                    for (control in controls) {
-                        val choices = Hardware.choices(control)
-                        val target = when {
-                            control == Hardware.floor -> choices.lastOrNull()
-                            control == Hardware.ceiling -> choices.firstOrNull()
-                            control.node.name == "scaling_governor" -> "schedutil"
-                            else -> choices.mapNotNull(String::toLongOrNull).maxOrNull()?.toString()
-                        }
-                        if (target != null && Hardware.apply(control, target)) {
-                            prefs.edit().remove(control.key).apply()
-                        } else {
-                            success = false
-                        }
-                    }
-                    success
-                }
-                true
-            }
-        })
-    }
-
-    private fun change(control: Control, selected: String) {
-        val context = requireContext().applicationContext
-        updateHardware {
-            val accepted = Hardware.apply(control, selected)
-            if (accepted && control !in Hardware.cores) {
-                Hardware.preferences(context).edit().putString(control.key, selected).apply()
-            }
-            accepted
+        findPreference<Preference>(RESET)?.isEnabled = writable && resetControls.any { control ->
+            val value = snapshot?.controls?.get(control)
+            value?.value != null && value.choices.isNotEmpty()
         }
     }
 
-    private fun updateHardware(operation: () -> Boolean) {
-        if (pending) return
-        val context = requireContext().applicationContext
-        pending = true
-        preferenceScreen.isEnabled = false
-        Hardware.worker.execute {
-            val accepted = operation()
-            handler.post {
-                pending = false
-                if (!accepted) Toast.makeText(context, R.string.write_failed, Toast.LENGTH_SHORT).show()
-                if (isResumed) render()
+    private fun updateCpuStatus(snapshot: HardwareSnapshot?, applying: Boolean) {
+        findPreference<StatusPreference>(STATUS)?.apply {
+            val readings = snapshot?.let { state -> Hardware.cores.map { state.controls[it]?.value } }
+            title = when {
+                readings == null -> getString(R.string.loading)
+                readings.any { it != "0" && it != "1" } -> getString(R.string.unavailable)
+                else -> getString(R.string.core_count, readings.count { it == "1" }, readings.size)
             }
+            setSummary(if (applying) R.string.applying else R.string.cpu_online_label)
+            busy = snapshot == null || applying
         }
     }
 
-    private fun startSpeaker() {
-        val context = requireContext()
-        val audio = context.getSystemService(Context.AUDIO_SERVICE) as AudioManager
-        val speaker = audio.getDevices(AudioManager.GET_DEVICES_OUTPUTS)
-            .firstOrNull { it.type == AudioDeviceInfo.TYPE_BUILTIN_SPEAKER }
-        try {
-            val tone = MediaPlayer.create(context, R.raw.clear_speaker_sound)
-                ?: throw IllegalStateException("Audio resource unavailable")
-            player = tone
-            check(speaker != null && tone.setPreferredDevice(speaker))
-            tone.addOnRoutingChangedListener(AudioRouting.OnRoutingChangedListener { route ->
-                val output = route.routedDevice
-                if (player === tone && output != null && output.id != speaker.id) {
-                    stopSpeaker()
-                    Toast.makeText(context, R.string.speaker_failed, Toast.LENGTH_SHORT).show()
-                }
-            }, handler)
-            tone.isLooping = true
-            tone.setOnErrorListener { _, _, _ -> stopSpeaker(); true }
-            tone.start()
-            handler.postDelayed(stopTone, 30_000)
-            findPreference<Preference>("speaker")?.setSummary(R.string.speaker_stop)
-        } catch (_: RuntimeException) {
-            stopSpeaker()
-            Toast.makeText(context, R.string.speaker_failed, Toast.LENGTH_SHORT).show()
+    private fun updateSpeaker() {
+        val cycle = speaker ?: return
+        findPreference<StatusPreference>(STATUS)?.apply {
+            setTitle(when {
+                cycle.playing -> R.string.speaker_playing
+                cycle.active -> R.string.speaker_connecting
+                else -> R.string.speaker_ready
+            })
+            setSummary(if (cycle.active) R.string.speaker_duration else R.string.speaker_summary)
+            busy = cycle.active
+        }
+        findPreference<Preference>(SPEAKER_BUTTON)?.setTitle(
+            if (cycle.active) R.string.speaker_stop else R.string.speaker_start
+        )
+    }
+
+    private fun label(control: Control, value: String) = when {
+        control in Hardware.gpu -> getString(R.string.opp, value)
+        control.node.name == "scaling_max_freq" -> getString(
+            R.string.khz, value.toLongOrNull()?.let { NumberFormat.getIntegerInstance().format(it) } ?: value
+        )
+        else -> value
+    }
+
+    companion object {
+        private const val STATUS = "status"
+        private const val INTRO = "intro"
+        private const val RESET = "reset"
+        private const val SPEAKER_BUTTON = "speaker_button"
+
+        internal fun forPage(page: Page) = PartsFragment().apply {
+            arguments = Bundle().apply { putString("page", page.name) }
         }
     }
+}
 
-    private fun stopSpeaker() {
-        handler.removeCallbacks(stopTone)
-        player?.release()
-        player = null
-        findPreference<Preference>("speaker")?.setSummary(R.string.speaker_start)
-    }
-
-    override fun onStop() {
-        stopSpeaker()
-        super.onStop()
-    }
+class ResetTuningDialog : DialogFragment() {
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog =
+        AlertDialog.Builder(requireContext())
+            .setTitle(R.string.reset)
+            .setMessage(R.string.reset_message)
+            .setNegativeButton(android.R.string.cancel, null)
+            .setPositiveButton(R.string.reset_confirm) { _, _ ->
+                (requireParentFragment() as PartsFragment).resetTuning()
+            }
+            .create()
 }

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingVertical="8dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/parts_status_background"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <ImageView
+            android:id="@android:id/icon"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_marginBottom="12dp"
+            android:importantForAccessibility="no"
+            android:tint="@color/settingslib_materialColorOnPrimaryContainer" />
+
+        <TextView
+            android:id="@android:id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:accessibilityLiveRegion="polite"
+            android:textAppearance="@style/TextAppearance.SettingsLib.HeadlineSmall.Emphasized"
+            android:textColor="@color/settingslib_materialColorOnPrimaryContainer" />
+
+        <TextView
+            android:id="@android:id/summary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:textAppearance="@style/TextAppearance.SettingsLib.BodyMedium"
+            android:textColor="@color/settingslib_materialColorOnPrimaryContainer" />
+
+        <ProgressBar
+            android:id="@+id/status_progress"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:layout_marginTop="14dp"
+            android:importantForAccessibility="no"
+            android:indeterminate="true"
+            android:indeterminateTint="@color/settingslib_materialColorOnPrimaryContainer"
+            android:visibility="gone" />
+    </LinearLayout>
+</LinearLayout>

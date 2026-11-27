@@ -9,6 +9,9 @@ android_app {
     platform_apis: true,
     system_ext_specific: true,
     static_libs: [
+        "androidx.appcompat_appcompat",
+        "androidx.lifecycle_lifecycle-livedata-core",
+        "androidx.lifecycle_lifecycle-viewmodel",
         "androidx.preference_preference",
         "org.lineageos.settings.resources",
     ],
