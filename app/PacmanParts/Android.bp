@@ -2,9 +2,8 @@
 // Speaker tone and dashboard icons from Onyx-Odyssey/android_device_xiaomi_onyx
 // at 00aaae44696a9dff850c2f88a1ac7b25491978d4.
 android_app {
-    name: "PacmanParts",
     // Change the install path so Package Manager reparses metadata from older builds.
-    stem: "PacmanPartsSettings",
+    name: "PacmanPartsSettings",
     defaults: ["SettingsLibDefaults"],
     srcs: ["src/**/*.kt"],
     certificate: "platform",
