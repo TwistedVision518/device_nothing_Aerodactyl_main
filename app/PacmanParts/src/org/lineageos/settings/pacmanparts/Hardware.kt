@@ -99,7 +99,9 @@ internal object Hardware {
                 if (value(control) == choice) return true
                 Thread.sleep(25)
             } while (System.nanoTime() < deadline)
-            return value(control) == choice
+            val readback = value(control)
+            if (readback == choice) return true
+            Log.w("PacmanParts", "${control.key}: requested $choice, read back $readback")
         } catch (_: InterruptedException) {
             Thread.currentThread().interrupt()
         } catch (e: RuntimeException) {

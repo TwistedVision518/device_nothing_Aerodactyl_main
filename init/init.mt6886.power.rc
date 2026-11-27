@@ -240,11 +240,11 @@ service vendor.hwcomposer-3-1 /vendor/bin/hw/android.hardware.graphics.composer@
     task_profiles ProcessCapacityHigh HighPerformance
     override
 
-# GED exposes these attributes as 0660/0440. Allow the Parts domain to
-# read the limits; vendor init performs writes using the existing labels.
+# PacmanParts reads GED state. Keep the owner write bit on the limits so
+# vendor init can open them for writing even with CAP_DAC_OVERRIDE.
 on boot
-    chmod 0444 /sys/kernel/ged/hal/custom_boost_gpu_freq
-    chmod 0444 /sys/kernel/ged/hal/custom_upbound_gpu_freq
+    chmod 0644 /sys/kernel/ged/hal/custom_boost_gpu_freq
+    chmod 0644 /sys/kernel/ged/hal/custom_upbound_gpu_freq
     chmod 0444 /sys/kernel/ged/hal/current_freqency
     chmod 0444 /sys/kernel/ged/hal/total_gpu_freq_level_count
 

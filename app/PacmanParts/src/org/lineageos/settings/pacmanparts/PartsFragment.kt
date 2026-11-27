@@ -2,6 +2,7 @@
 package org.lineageos.settings.pacmanparts
 
 import android.app.Dialog
+import android.media.AudioManager
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AlertDialog
@@ -83,6 +84,7 @@ class PartsFragment : SettingsBasePreferenceFragment() {
     override fun onStart() {
         super.onStart()
         requireActivity().setTitle(page.title)
+        if (page == Page.SPEAKER) requireActivity().volumeControlStream = AudioManager.STREAM_MUSIC
     }
 
     override fun onResume() {
@@ -93,6 +95,11 @@ class PartsFragment : SettingsBasePreferenceFragment() {
     override fun onPause() {
         speaker?.stop()
         super.onPause()
+    }
+
+    override fun onStop() {
+        if (page == Page.SPEAKER) requireActivity().volumeControlStream = AudioManager.USE_DEFAULT_STREAM_TYPE
+        super.onStop()
     }
 
     override fun onDestroyView() {

@@ -21,6 +21,7 @@
     <string name="speaker_duration">The tone stops automatically after 30 seconds.</string>
     <string name="speaker_start">Start cleaning</string>
     <string name="speaker_stop">Stop cleaning</string>
+    <string name="speaker_volume">Turn up media volume to play the cleaning tone.</string>
     <string name="speaker_failed">Could not play the tone through the built-in speaker.</string>
     <string name="loading">Reading hardware…</string>
     <string name="applying">Applying changes…</string>
