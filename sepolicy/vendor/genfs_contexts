@@ -9,7 +9,6 @@ genfscon sysfs /devices/platform/soc/11013000.spi3/spi_master/spi3/spi3.0       
 genfscon sysfs /panel_feature                                                    u:object_r:vendor_sysfs_graphics:s0
 
 # PacmanParts GPU frequency labels
-genfscon proc /gpufreqv2                                                        u:object_r:proc_gpufreqv2:s0
 genfscon proc /gpufreqv2/gpu_working_opp_table                                    u:object_r:vendor_proc_pacman_gpu_opp:s0
 genfscon proc /gpufreqv2/gpufreq_status                                           u:object_r:vendor_proc_pacman_gpu_opp:s0
 
