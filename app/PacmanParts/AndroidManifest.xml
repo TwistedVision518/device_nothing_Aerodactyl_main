@@ -11,7 +11,8 @@
             </intent-filter>
             <meta-data android:name="com.android.settings.category"
                 android:value="com.android.settings.category.ia.system" />
-            <meta-data android:name="com.android.settings.summary" android:resource="@string/parts_summary" />
+            <meta-data android:name="com.android.settings.title" android:value="@string/parts_name" />
+            <meta-data android:name="com.android.settings.summary" android:value="@string/parts_summary" />
             <meta-data android:name="com.android.settings.icon" android:resource="@drawable/ic_kernel_manager" />
             <meta-data android:name="com.android.settings.profile" android:value="primary_profile_only" />
         </activity>
