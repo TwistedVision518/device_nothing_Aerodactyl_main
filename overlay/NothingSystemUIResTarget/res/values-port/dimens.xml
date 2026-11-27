@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- SPDX-License-Identifier: Apache-2.0 -->
+<resources>
+    <!-- Raise the side volume panel toward the physical volume buttons. -->
+    <dimen name="volume_dialog_vertical_offset">-24dp</dimen>
+</resources>
