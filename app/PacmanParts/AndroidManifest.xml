@@ -1,6 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.lineageos.settings.pacmanparts">
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.USE_EXACT_ALARM" />
     <application android:label="@string/parts_name" android:allowBackup="false"
         android:theme="@style/Theme.SubSettingsBase.Expressive">
         <activity android:name=".PartsActivity" android:exported="true"
@@ -17,5 +18,6 @@
         <receiver android:name=".BootReceiver" android:exported="false">
             <intent-filter><action android:name="android.intent.action.BOOT_COMPLETED" /></intent-filter>
         </receiver>
+        <receiver android:name=".TrialTimeoutReceiver" android:exported="false" />
     </application>
 </manifest>

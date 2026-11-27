@@ -11,6 +11,8 @@ internal enum class Page(val title: Int) {
     CORES(R.string.cpu),
     KERNEL(R.string.kernel),
     GPU(R.string.gpu),
+    MONITOR(R.string.monitor),
+    PRESETS(R.string.presets),
     SPEAKER(R.string.speaker),
 }
 

@@ -9,6 +9,8 @@ type vendor_goodix_gf_data_file, file_type, data_file_type;
 
 # NTF
 type vendor_ntf_file, file_type;
+type proc_gpufreqv2, fs_type, proc_type;
 
 # Power
+type vendor_proc_pacman_gpu_opp, fs_type, proc_type;
 type sysfs_battery, fs_type, sysfs_type;

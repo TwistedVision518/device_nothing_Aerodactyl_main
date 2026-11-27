@@ -247,6 +247,9 @@ on boot
     chmod 0644 /sys/kernel/ged/hal/custom_upbound_gpu_freq
     chmod 0444 /sys/kernel/ged/hal/current_freqency
     chmod 0444 /sys/kernel/ged/hal/total_gpu_freq_level_count
+    chmod 0444 /sys/kernel/ged/hal/gpu_utilization
+    chmod 0444 /proc/gpufreqv2/gpu_working_opp_table
+    chmod 0444 /proc/gpufreqv2/gpufreq_status
 
 # Manual adjustments from the owner-only Parts screen. No boot-time defaults.
 on property:vendor.pacmanparts.cpu1=*

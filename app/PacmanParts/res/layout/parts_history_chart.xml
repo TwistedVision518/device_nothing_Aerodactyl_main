@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<org.lineageos.settings.pacmanparts.HistoryChart
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/history_chart"
+    android:layout_width="112dp"
+    android:layout_height="48dp"
+    android:importantForAccessibility="no" />

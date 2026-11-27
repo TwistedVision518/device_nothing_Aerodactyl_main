@@ -1,3 +1,5 @@
 set_prop(pacman_parts_app, vendor_pacman_parts_prop)
 allow pacman_parts_app sysfs_ged:dir search;
 allow pacman_parts_app sysfs_ged:file r_file_perms;
+allow pacman_parts_app proc_gpufreqv2:dir search;
+allow pacman_parts_app vendor_proc_pacman_gpu_opp:file r_file_perms;
